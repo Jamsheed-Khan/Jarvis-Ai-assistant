@@ -1,7 +1,9 @@
 import pyttsx3
-import speech_recognition 
-import requests
-import bs4
+import speech_recognition
+import os
+import random
+import datetime
+import pyautogui
 engine = pyttsx3.init("sapi5")
 voices = engine.getProperty("voices")
 engine.setProperty("voice", voices[0].id)
@@ -64,20 +66,7 @@ if __name__ == "__main__":
                 elif "wikipedia" in query:
                     from SearchNow import searchWikipedia
                     searchWikipedia(query)
-                elif "temperature" in query:
-                    search = "temperature in delhi"
-                    url = f"https://www.google.com/search?q={search}"
-                    r  = requests.get(url)
-                    data = BeautifulSoup(r.text,"html.parser")
-                    temp = data.find("div", class_ = "BNeawe").text
-                    speak(f"current{search} is {temp}") 
-                elif "weather" in query:
-                    search = "temperature in delhi"
-                    url = f"https://www.google.com/search?q={search}"
-                    r  = requests.get(url)
-                    data = BeautifulSoup(r.text,"html.parser")
-                    temp = data.find("div", class_ = "BNeawe").text
-                    speak(f"current{search} is {temp}")
+
                 elif "the time" in query:
                     strTime = datetime.datetime.now().strftime("%H:%M")    
                     speak(f"Sir, the time is {strTime}")
@@ -119,7 +108,7 @@ if __name__ == "__main__":
                 elif "remember that" in query:
                     rememberMessage = query.replace("remember that","")
                     rememberMessage = query.replace("jarvis","")
-                    speak("You told me to remember that"+rememberMessage)
+                    speak("You told me to remember that" + rememberMessage)
                     remember = open("Remember.txt","a")
                     remember.write(rememberMessage)
                     remember.close()
@@ -130,11 +119,8 @@ if __name__ == "__main__":
                     speak("Playing your favourite songs, sir")
                     a = (1,2,3) # You can choose any number of songs (I have only choosen 3)
                     b = random.choice(a)
-                    if b==1:
-                    webbrowser.open()#Here put the link of your video
-                elif "news" in query:
-                    from NewsRead import latestnews
-                    latestnews()
+                    # if b==1:
+                    # webbrowser.open()#Here put the link of your video
                 elif "calculate" in query:
                     from Calculatenumbers import WolfRamAlpha
                     from Calculatenumbers import Calc
@@ -166,8 +152,12 @@ if __name__ == "__main__":
                     pyautogui.sleep(2)
                     speak("SMILE")
                     pyautogui.press("enter")                    
-elif "translate" in query:
+                elif "translate" in query:
                     from Translator import translategl
                     query = query.replace("jarvis","")
                     query = query.replace("translate","")
                     translategl(query)
+        elif "exit" in query:
+            speak("okey sir, Allah hafiz ")
+            print("Allah hafiz")
+            exit()

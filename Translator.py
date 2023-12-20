@@ -5,7 +5,7 @@ import googletrans #pip install googletrans
 from gtts import gTTS
 import googletrans
 import pyttsx3
-import speech_recognition 
+import speech_recognition
 import os
 from playsound import playsound
 import time

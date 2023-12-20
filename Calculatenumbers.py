@@ -1,3 +1,12 @@
+import pyttsx3
+import wolframalpha
+import speech_recognition
+
+
+
+
+
+
 engine = pyttsx3.init("sapi5")
 voices = engine.getProperty("voices")
 engine.setProperty("voice", voices[0].id)
@@ -8,7 +17,8 @@ def speak(audio):
     engine.runAndWait()
 
 def WolfRamAlpha(query):
-    apikey = "#paste your api key"
+    apikey = "R6JE6R-35QV84W93T"
+
     requester = wolframalpha.Client(apikey)
     requested = requester.query(query)
 
