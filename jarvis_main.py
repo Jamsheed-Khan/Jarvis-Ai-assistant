@@ -3,7 +3,11 @@ import speech_recognition
 import os
 import random
 import datetime
+import requests
+import webbrowser
+from bs4 import BeautifulSoup
 import pyautogui
+
 engine = pyttsx3.init("sapi5")
 voices = engine.getProperty("voices")
 engine.setProperty("voice", voices[0].id)
@@ -119,8 +123,12 @@ if __name__ == "__main__":
                     speak("Playing your favourite songs, sir")
                     a = (1,2,3) # You can choose any number of songs (I have only choosen 3)
                     b = random.choice(a)
-                    # if b==1:
-                    # webbrowser.open()#Here put the link of your video
+                    if b==1:
+                        webbrowser.open("https://www.youtube.com/watch?v=7dnvG7L9-MQ")
+                    elif b == 2:
+                        webbrowser.open("https://www.youtube.com/watch?v=p9K7Xb2JrZI")
+                    elif b == 3:
+                        webbrowser.open("https://www.youtube.com/watch?v=jjfa9HRWJFo")
                 elif "calculate" in query:
                     from Calculatenumbers import WolfRamAlpha
                     from Calculatenumbers import Calc
@@ -151,7 +159,25 @@ if __name__ == "__main__":
                     pyautogui.press("enter")
                     pyautogui.sleep(2)
                     speak("SMILE")
-                    pyautogui.press("enter")                    
+                    pyautogui.press("enter")
+                elif "temperature" in query:
+                    search = "temperature in karachi"
+                    url = f"https://www.google.com/search?q={search}"
+                    r = requests.get(url)
+                    data = BeautifulSoup(r.text, "html.parser")
+                    temp = data.find("div", class_="BNeawe").text
+                    speak(f"current{search} is {temp}")
+                elif "weather" in query:
+                    search = "temperature in karachi"
+                    url = f"https://www.google.com/search?q={search}"
+                    r = requests.get(url)
+                    data = BeautifulSoup(r.text, "html.parser")
+                    temp = data.find("div", class_="BNeawe").text
+                    speak(f"current{search} is {temp}")
+                elif "news" in query:
+                    from NewsRead import latestnews
+                    latestnews()
+
                 elif "translate" in query:
                     from Translator import translategl
                     query = query.replace("jarvis","")
